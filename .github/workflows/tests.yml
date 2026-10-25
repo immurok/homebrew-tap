@@ -1,0 +1,22 @@
+name: Audit cask
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Tap this checkout
+        run: brew tap immurok/tap "$GITHUB_WORKSPACE"
+
+      - name: brew style
+        run: brew style immurok/tap
+
+      - name: brew audit
+        run: brew audit --cask --online --strict immurok/tap/immurok
