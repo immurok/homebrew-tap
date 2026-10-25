@@ -13,7 +13,7 @@ cask "immurok" do
     strategy :github_latest
   end
 
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   # The signed + notarized pkg installs /Applications/immurok.app,
   # /usr/local/bin/imk and /usr/local/lib/pam/pam_immurok.so, and its
@@ -26,7 +26,10 @@ cask "immurok" do
   uninstall quit:    "com.immurok.app",
             script:  {
               executable: "/usr/sbin/installer",
-              args:       ["-pkg", "/Applications/immurok.app/Contents/Resources/immurok_uninstall.pkg", "-target", "/"],
+              args:       [
+                "-pkg", "/Applications/immurok.app/Contents/Resources/immurok_uninstall.pkg",
+                "-target", "/"
+              ],
               sudo:       true,
             },
             pkgutil: [
