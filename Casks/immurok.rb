@@ -2,8 +2,7 @@ cask "immurok" do
   version "1.6.5"
   sha256 "8f0bbcf532293c2a8a300508271a1bc7d014f2a272a6973cae52e6298522a45e"
 
-  url "https://github.com/immurok/app-macos/releases/download/v#{version}/immurok-#{version}.pkg",
-      verified: "github.com/immurok/app-macos/"
+  url "https://github.com/immurok/app-macos/releases/download/v#{version}/immurok-#{version}.pkg"
   name "immurok"
   desc "Bluetooth fingerprint authentication for screen unlock, sudo and PAM"
   homepage "https://immurok.com/"
@@ -23,14 +22,17 @@ cask "immurok" do
   # `pkgutil:` alone would leave the /etc/pam.d edits behind, so run the
   # uninstall pkg that ships inside the app first; it reverts them and
   # removes every installed file. The receipts are forgotten afterwards.
+  # must_succeed: false keeps `brew uninstall` working when the app was
+  # already removed by hand (or via the app's own uninstall action).
   uninstall quit:    "com.immurok.app",
             script:  {
-              executable: "/usr/sbin/installer",
-              args:       [
+              executable:   "/usr/sbin/installer",
+              args:         [
                 "-pkg", "/Applications/immurok.app/Contents/Resources/immurok_uninstall.pkg",
                 "-target", "/"
               ],
-              sudo:       true,
+              sudo:         true,
+              must_succeed: false,
             },
             pkgutil: [
               "com.immurok.pkg",
