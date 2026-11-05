@@ -1,6 +1,6 @@
 cask "immurok" do
-  version "1.6.5"
-  sha256 "8f0bbcf532293c2a8a300508271a1bc7d014f2a272a6973cae52e6298522a45e"
+  version "1.6.7"
+  sha256 "7e3817ac54212a6d1c8c746eff969d9c3607f6edb0e5a0b32e55ab458ae6b7d7"
 
   url "https://github.com/immurok/app-macos/releases/download/v#{version}/immurok-#{version}.pkg"
   name "immurok"
