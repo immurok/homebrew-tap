@@ -46,6 +46,11 @@ cask "immurok" do
                   for p in "/Library/Application Support/immurok/immurok_uninstall.pkg" \
                            "/Applications/immurok.app/Contents/Resources/immurok_uninstall.pkg"; do
                     if [ -f "$p" ]; then
+                      # Mark this as a brew-driven uninstall/upgrade: the uninstall
+                      # pkg then preserves ~/.immurok, the preferences and the
+                      # /etc/immurok/pam channel key (full data removal is zap's job).
+                      # The pkg consumes the marker on entry.
+                      touch /tmp/immurok-keep-user-data
                       exec /usr/sbin/installer -pkg "$p" -target /
                     fi
                   done
